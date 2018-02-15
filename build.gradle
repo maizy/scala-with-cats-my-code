@@ -27,6 +27,7 @@ dependencies {
 
   compile "org.scala-lang:scala-library:${scalaVersion}"
   compile "org.scala-lang:scala-reflect:${scalaVersion}"
+  compile "org.typelevel:cats-core_${scalaMajorVersion}:1.0.1"
 
   testCompile "org.scalatest:scalatest_${scalaMajorVersion}:3.0.4"
   testRuntime "org.pegdown:pegdown:1.4.2"
@@ -41,6 +42,7 @@ tasks.withType(ScalaCompile) {
     scalaCompileOptions.additionalParameters = [
         "-Xlint:_",
         "-Xfatal-warnings",
+        "-Ypartial-unification",
         "-Ywarn-dead-code",
         "-Ywarn-inaccessible",
         "-Ywarn-infer-any",

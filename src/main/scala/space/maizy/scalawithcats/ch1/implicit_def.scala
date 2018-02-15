@@ -37,18 +37,14 @@ object OptPrinter {
     }
 }
 
-object ImplicitDef {
+object ShapePrinter {
+  implicit val shapePrinter: Printer[Shape] = new Printer[Shape] {
+    override def printMe(value: Shape): String = s"Shape: volume=${value.volume.formatted("%.1f")}"
+  }
 
-  def main(args: Array[String]): Unit = {
-    import StdTypePrinters._
-    import OptPrinter._
-
-    println(Printer.printMe(5))
-    println(Printer.printMe("test"))
-    println(Printer.printMe(Some("test")))
-    println(Printer.printMe(Option.empty[Int]))
-    println(Printer.printMe(None))
-    println(Printer.printMe(Some(7)))
-
+  implicit val squarePrinter: Printer[Square] = new Printer[Square] {
+    override def printMe(value: Square): String = s"Square: side=${value.side}, volume=${value.volume.formatted("%.1f")}"
   }
 }
+
+// see space.maizy.scalawithcats.ch1.ImplicitDefTest for examples
