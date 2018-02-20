@@ -66,4 +66,14 @@ class MonoidsSpec extends FlatSpec with Matchers {
       identityLaw(x = Set(1, 2, 3))(m) shouldBe true
     }
   }
+
+  "cats Monoid" should "works" in {
+    import cats.instances.string._
+    import cats.instances.option._
+    import cats.syntax.semigroup._
+    import cats.syntax.option._
+
+    ("a" |+| "b") shouldBe "ab"
+    ("a".some |+| none[String]) shouldBe Some("a")
+  }
 }
