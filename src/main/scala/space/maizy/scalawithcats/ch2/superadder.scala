@@ -12,3 +12,9 @@ object IntAdder {
     items.foldLeft(m.empty)(m.combine)
   }
 }
+
+object SuperAdder {
+  def add[A](items: List[A])(implicit m: Monoid[A]): A = {
+    items.foldLeft(m.empty)(m.combine)
+  }
+}
