@@ -16,18 +16,30 @@ class BooleanMonoidSpec extends FlatSpec with Matchers {
   def identityLaw[A](x: A)(implicit m: Monoid[A]): Boolean =
       (m.combine(x, m.empty) == x) && (m.combine(m.empty, x) == x)
 
+  val monoids = Seq(
+    BooleanMonoids.andMonoid,
+    BooleanMonoids.orMonoid,
+    BooleanMonoids.xorMonoid,
+    BooleanMonoids.norMonoid
+  )
 
   "BooleanMonoid" should "supports associative law" in {
-    for (x <- Seq(true, false)) {
-      for (y <- Seq(true, false)) {
-        for (z <- Seq(true, false)) {
-          associativeLaw(x, y, z)(BooleanMonoid) shouldBe true
+
+    for (m <- monoids) {
+      for (x <- Seq(true, false)) {
+        for (y <- Seq(true, false)) {
+          for (z <- Seq(true, false)) {
+            associativeLaw(x, y, z)(m) shouldBe true
+          }
         }
       }
     }
   }
 
   it should "supports identity law" in {
-    identityLaw(true)(BooleanMonoid) shouldBe true
+    for (m <- monoids) {
+      identityLaw(x = true)(m) shouldBe true
+      identityLaw(x = false)(m) shouldBe true
+    }
   }
 }
