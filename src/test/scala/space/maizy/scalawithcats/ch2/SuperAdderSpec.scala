@@ -31,4 +31,16 @@ class SuperAdderSpec extends FlatSpec with Matchers {
     // evidance is added implicitly because of [A : Monoid] type
     //SuperAdder.add2(List(1.0, 2.0, 5.0)) shouldBe 8.0
   }
+
+  it should "works for custom types" in {
+    SuperAdder.add2(List(Order(1.5, 1.0), Order(2.0, 1.5), Order(1.0, 0.1))) shouldBe
+      Order(4.5, 2.6)
+  }
+
+  it should "override object helper method for custom types" in {
+    import AdditionalOrderMonoid._
+
+    SuperAdder.add2(List(Order(1.5, 1.0), Order(2.0, 1.5), Order(1.0, 0.1))) shouldBe
+      Order(6.0, 2.6)
+  }
 }
