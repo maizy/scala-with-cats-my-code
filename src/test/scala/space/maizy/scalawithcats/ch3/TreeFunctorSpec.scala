@@ -45,4 +45,19 @@ class TreeFunctorSpec extends FlatSpec with Matchers {
     val trees: List[Tree[Int]] = List(Leaf(1), Branch(Leaf(10), Leaf(11)))
     Functor[List].map(trees)(t => Functor[Tree].map(t)(_ * 2)) shouldBe List(Leaf(2), Branch(Leaf(20), Leaf(22)))
   }
+
+  it should "works with contravariant constructors" in {
+    import cats.syntax.functor._
+    import TreeFunctor._
+    Tree.leaf(9).map(i => Math.pow(i.toDouble, 2.0).toInt) shouldBe Tree.leaf(81)
+
+
+    val tree = Tree.branch(Tree.leaf(1), Tree.branch(Tree.leaf(3), Tree.leaf(5)))
+
+    val processedTree = tree
+      .map(_ + 1)
+      .map(_ / 2)
+
+    processedTree shouldBe Tree.branch(Tree.leaf(1), Tree.branch(Tree.leaf(2), Tree.leaf(3)))
+  }
 }
