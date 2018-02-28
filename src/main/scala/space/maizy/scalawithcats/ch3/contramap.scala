@@ -6,9 +6,10 @@ package space.maizy.scalawithcats.ch3
   */
 
 trait Printable[A] {
+  self =>
   def format(v: A): String
-  def contramap[B](func: B => A)(implicit p: Printable[A]): Printable[B] = new Printable[B] {
-    override def format(v: B): String = Printable.format(func(v))
+  def contramap[B](func: B => A): Printable[B] = new Printable[B] {
+    override def format(v: B): String = self.format(func(v))
   }
 }
 
