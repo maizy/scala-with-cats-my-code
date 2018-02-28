@@ -14,6 +14,16 @@ class TreeFunctorSpec extends FlatSpec with Matchers {
     f.map(start)(_ + 1)
   }
 
+  "functors" should "works with abstract logic" in {
+    import cats.Id
+    import cats.instances.option._
+    import cats.syntax.option._
+    inc1(2.some) shouldBe Some(3)
+    inc1(none[Int]) shouldBe none[Int]
+
+    inc1[Id](4) shouldBe 5 // => type mismatch; found : Int, required: ?F[Int]
+  }
+
   "TreeFunctor" should "works for leaf" in {
     import TreeFunctor._
     treeFunctor.map(Leaf(1))(_ + 1) shouldBe Leaf(2)
@@ -27,16 +37,9 @@ class TreeFunctorSpec extends FlatSpec with Matchers {
     treeFunctor.map(t)(_ - 1) shouldBe Branch(Leaf(0), Branch(Leaf(8), Leaf(-1)))
   }
 
-  it should "works with abstract logic" in {
-    import cats.instances.option._
-    import cats.syntax.option._
-    inc1(2.some) shouldBe Some(3)
-    inc1(none[Int]) shouldBe none[Int]
-  }
 
   it should "works with boxing into std types" in {
     import cats.instances.list._
-    import cats.Functor
     import TreeFunctor._
 
     val ints = List(1, 2, 3)
@@ -49,15 +52,24 @@ class TreeFunctorSpec extends FlatSpec with Matchers {
   it should "works with contravariant constructors" in {
     import cats.syntax.functor._
     import TreeFunctor._
-    Tree.leaf(9).map(i => Math.pow(i.toDouble, 2.0).toInt) shouldBe Tree.leaf(81)
+     import Tree._
+    leaf(9).map(i => Math.pow(i.toDouble, 2.0).toInt) shouldBe leaf(81)
 
 
-    val tree = Tree.branch(Tree.leaf(1), Tree.branch(Tree.leaf(3), Tree.leaf(5)))
+    val tree = branch(leaf(1), branch(leaf(3), leaf(5)))
 
     val processedTree = tree
       .map(_ + 1)
       .map(_ / 2)
 
-    processedTree shouldBe Tree.branch(Tree.leaf(1), Tree.branch(Tree.leaf(2), Tree.leaf(3)))
+    processedTree shouldBe branch(leaf(1), branch(leaf(2), leaf(3)))
+  }
+
+  it should "works with abstract logic" in {
+    import TreeFunctor._
+    import Tree._
+
+    inc1(leaf(5)) shouldBe leaf(6)
+    inc1(branch(leaf(1), leaf(0))) shouldBe branch(leaf(2), leaf(1))
   }
 }
