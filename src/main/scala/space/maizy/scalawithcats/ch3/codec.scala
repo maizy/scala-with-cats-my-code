@@ -39,5 +39,10 @@ object CodecInstances {
   }
 
   implicit val doubleCodecWithRound: Codec[Double] =
-    intCodec.imap(_.toDouble, _.toInt)
+    stringCodec.imap(_.toDouble, _.toString)
+
+  implicit def boxCodec[A](implicit vCodec: Codec[A]): Codec[Box[A]] = new Codec[Box[A]] {
+    override def encode(v: Box[A]): String = vCodec.encode(v.value)
+    override def decode(p: String): Box[A] = Box(vCodec.decode(p))
+  }
 }

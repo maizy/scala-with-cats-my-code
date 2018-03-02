@@ -25,7 +25,16 @@ class CodecTest extends FlatSpec with Matchers {
     import CodecOps._
     import CodecInstances._
 
-    encode(5.3) shouldBe "5"
-    decode[Double]("5") shouldBe 5.0
+    encode(5.3) shouldBe "5.3"
+    decode[Double]("5.3") shouldBe 5.3 +- 0.1
+  }
+
+  it should "works for boxed types" in {
+    import CodecOps._
+    import CodecInstances._
+
+    encode(Box(1.234)) shouldBe "1.234"
+    val v: Box[Double] = decode[Box[Double]]("1.234")
+    v.value shouldBe 1.234 +- 0.1
   }
 }
