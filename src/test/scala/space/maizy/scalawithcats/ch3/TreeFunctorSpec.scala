@@ -4,11 +4,11 @@ package space.maizy.scalawithcats.ch3
   * See LICENSE.txt for details.
   */
 
-import org.scalatest.{ FlatSpec, Matchers }
 import cats.Functor
 import scala.language.higherKinds
+import space.maizy.scalawithcats.BaseSpec
 
-class TreeFunctorSpec extends FlatSpec with Matchers {
+class TreeFunctorSpec extends BaseSpec {
 
   def inc1[F[_]](start: F[Int])(implicit f: Functor[F]): F[Int] = {
     f.map(start)(_ + 1)

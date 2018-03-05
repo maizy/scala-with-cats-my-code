@@ -5,9 +5,9 @@ package space.maizy.scalawithcats.ch3
   * See LICENSE.txt for details.
   */
 
-import org.scalatest.{ FlatSpec, Matchers }
+import space.maizy.scalawithcats.BaseSpec
 
-class ImapSpec extends FlatSpec with Matchers {
+class ImapSpec extends BaseSpec {
   "Monoid for Symbol builded by imap" should "works" in {
     import cats.Monoid
     import cats.syntax.semigroup._

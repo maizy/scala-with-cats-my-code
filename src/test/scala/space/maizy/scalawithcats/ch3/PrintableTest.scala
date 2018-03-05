@@ -5,9 +5,9 @@ package space.maizy.scalawithcats.ch3
   * See LICENSE.txt for details.
   */
 
-import org.scalatest.{ FlatSpec, Matchers }
+import space.maizy.scalawithcats.BaseSpec
 
-class PrintableTest extends FlatSpec with Matchers {
+class PrintableTest extends BaseSpec {
   import PrintableInstances._
   import Printable._
 

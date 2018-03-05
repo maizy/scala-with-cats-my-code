@@ -5,9 +5,9 @@ package space.maizy.scalawithcats.ch1
   * See LICENSE.txt for details.
   */
 
-import org.scalatest.{ FlatSpec, Matchers }
+import space.maizy.scalawithcats.BaseSpec
 
-class CatsShowSpec extends FlatSpec with Matchers {
+class CatsShowSpec extends BaseSpec {
 
   "ShapeShow" should "work" in {
     import ShapeShowInstances._

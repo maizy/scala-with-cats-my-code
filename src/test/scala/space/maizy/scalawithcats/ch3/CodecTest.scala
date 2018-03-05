@@ -5,9 +5,9 @@ package space.maizy.scalawithcats.ch3
   * See LICENSE.txt for details.
   */
 
-import org.scalatest.{ FlatSpec, Matchers }
+import space.maizy.scalawithcats.BaseSpec
 
-class CodecTest extends FlatSpec with Matchers {
+class CodecTest extends BaseSpec {
   "Codec" should "works with fully specified codecs" in {
     import CodecOps._
     import CodecInstances._

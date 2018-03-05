@@ -5,10 +5,10 @@ package space.maizy.scalawithcats.ch2
   * See LICENSE.txt for details.
   */
 
-import org.scalatest.{ FlatSpec, Matchers }
 import cats.Monoid
+import space.maizy.scalawithcats.BaseSpec
 
-class MonoidsSpec extends FlatSpec with Matchers {
+class MonoidsSpec extends BaseSpec {
 
   def associativeLaw[A](x: A, y: A, z: A)(implicit m: Monoid[A]): Boolean =
       m.combine(x, m.combine(y, z)) == m.combine(m.combine(x, y), z)

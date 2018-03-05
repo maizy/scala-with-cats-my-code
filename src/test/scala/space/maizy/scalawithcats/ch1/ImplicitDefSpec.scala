@@ -5,9 +5,10 @@ package space.maizy.scalawithcats.ch1
   * See LICENSE.txt for details.
   */
 
-import org.scalatest.{ FlatSpec, Matchers }
+import space.maizy.scalawithcats.BaseSpec
 
-class ImplicitDefSpec extends FlatSpec with Matchers {
+
+class ImplicitDefSpec extends BaseSpec {
 
   "Printer" should "works" in {
     import StdTypePrinters._

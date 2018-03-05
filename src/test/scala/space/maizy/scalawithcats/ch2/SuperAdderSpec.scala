@@ -5,9 +5,9 @@ package space.maizy.scalawithcats.ch2
   * See LICENSE.txt for details.
   */
 
-import org.scalatest.{ FlatSpec, Matchers }
+import space.maizy.scalawithcats.BaseSpec
 
-class SuperAdderSpec extends FlatSpec with Matchers {
+class SuperAdderSpec extends BaseSpec {
 
   "IntAdder" should "works" in {
     IntAdder.add(List(1, 2, 5)) shouldBe 8
