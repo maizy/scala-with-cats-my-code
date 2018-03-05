@@ -6,7 +6,7 @@ package space.maizy.scalawithcats.ch1
   */
 
 import cats._
-import cats.implicits._
+import cats.syntax.contravariant._
 
 object ShapeShowInstances {
   implicit val shapeShow: Show[Shape] =
