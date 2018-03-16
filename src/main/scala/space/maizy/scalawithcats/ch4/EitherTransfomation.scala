@@ -22,7 +22,7 @@ object EitherTransfomation {
     }
   }
 
-  def divideIntsAndMulBy2(a: Int, b: Int): Either[String, Double] = {
+  def divideIntsAndMulBy2(a: Int, b: Int): Either[String, Double] =
     for {
       eitherA <- a.asRight[String]
       eitherB <- b.asRight[String]
@@ -33,5 +33,4 @@ object EitherTransfomation {
           (a / b).toDouble.asRight[String]
         }
     } yield res * 2
-  }
 }
