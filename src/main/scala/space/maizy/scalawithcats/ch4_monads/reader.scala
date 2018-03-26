@@ -6,6 +6,7 @@ package space.maizy.scalawithcats.ch4_monads
  */
 
 import cats.data.Reader
+import cats.syntax.applicative._
 
 case class Db(
   usernames: Map[Int, String],
@@ -25,9 +26,11 @@ object DbOperations {
 
   def checkLogin(userId: Int, password: String): DbReader[Boolean] =
     findUsername(userId).flatMap { mayBeUserName =>
-      mayBeUserName.map { userName =>
-        checkPassword(userName, password)
-      }.getOrElse(Reader.apply(db => false))
-    }
+      mayBeUserName
+        .map { userName =>
+          checkPassword(userName, password)
+        }
+        .getOrElse(false.pure[DbReader])
+      }
 
 }
