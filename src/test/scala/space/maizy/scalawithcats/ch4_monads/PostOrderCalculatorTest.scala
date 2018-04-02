@@ -45,4 +45,7 @@ class PostOrderCalculatorTest extends BaseSpec {
     program.runA(Nil).value shouldBe 21
   }
 
+  "PostOrderCalculator.evalInput" should "works" in {
+    PostOrderCalculator.evalInput("1 2 + 3 *") shouldBe 9
+  }
 }

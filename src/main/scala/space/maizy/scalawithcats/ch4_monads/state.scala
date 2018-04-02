@@ -46,4 +46,7 @@ object PostOrderCalculator {
     input.foldLeft(0.pure[CalcState]) { (acc, i) =>
       acc.flatMap(_ => evalOne(i))
     }
+
+  def evalInput(input: String): Int =
+    evalAll(input.split(" ").toList).runA(Nil).value
 }
