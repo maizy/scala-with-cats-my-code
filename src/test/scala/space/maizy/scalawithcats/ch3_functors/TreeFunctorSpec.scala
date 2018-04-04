@@ -1,8 +1,8 @@
 package space.maizy.scalawithcats.ch3_functors
 /**
-  * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
-  * See LICENSE.txt for details.
-  */
+ * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
+ * See LICENSE.txt for details.
+ */
 
 import cats.Functor
 import scala.language.higherKinds
@@ -52,9 +52,9 @@ class TreeFunctorSpec extends BaseSpec {
   it should "works with contravariant constructors" in {
     import cats.syntax.functor._
     import TreeFunctor._
-     import Tree._
-    leaf(9).map(i => Math.pow(i.toDouble, 2.0).toInt) shouldBe leaf(81)
+    import Tree._
 
+    leaf(9).map(i => Math.pow(i.toDouble, 2.0).toInt) shouldBe leaf(81)
 
     val tree = branch(leaf(1), branch(leaf(3), leaf(5)))
 

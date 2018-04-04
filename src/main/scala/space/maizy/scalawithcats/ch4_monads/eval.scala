@@ -8,8 +8,8 @@ package space.maizy.scalawithcats.ch4_monads
 import cats.Eval
 
 object NaiveEvaluation {
-   def factorial(n: BigInt): BigInt =
-      if(n == 1) n else n * factorial(n - 1)
+  def factorial(n: BigInt): BigInt =
+    if (n == 1) n else n * factorial(n - 1)
 
   def foldRight[A, B](as: List[A], acc: B)(fn: (A, B) => B): B = as match {
     case head :: tail =>
@@ -31,7 +31,7 @@ object WithCatsEval {
   def foldRight[A, B](as: List[A], acc: B)(fn: (A, B) => B): Eval[B] = {
 
     def internal(xs: List[A], acc: Eval[B]): Eval[B] = {
-        xs match {
+      xs match {
         case head :: tail =>
           Eval.defer(internal(tail, acc).flatMap(b => Eval.later(fn(head, b))))
         case Nil =>

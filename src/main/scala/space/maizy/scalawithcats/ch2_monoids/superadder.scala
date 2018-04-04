@@ -1,9 +1,9 @@
 package space.maizy.scalawithcats.ch2_monoids
 
 /**
-  * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
-  * See LICENSE.txt for details.
-  */
+ * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
+ * See LICENSE.txt for details.
+ */
 
 import cats.Monoid
 import cats.syntax.semigroup._

@@ -3,9 +3,9 @@ package space.maizy.scalawithcats.ch4_monads
 import space.maizy.scalawithcats.BaseSpec
 
 /**
-  * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
-  * See LICENSE.txt for details.
-  */
+ * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
+ * See LICENSE.txt for details.
+ */
 class MyMonadSpec extends BaseSpec {
   "MyMonoid" should "implements map based on flatmap & pure" in {
     import MyMonadInstances._

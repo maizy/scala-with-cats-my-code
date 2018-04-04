@@ -1,9 +1,9 @@
 package space.maizy.scalawithcats.ch1_intro
 
 /**
-  * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
-  * See LICENSE.txt for details.
-  */
+ * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
+ * See LICENSE.txt for details.
+ */
 
 import space.maizy.scalawithcats.BaseSpec
 
@@ -31,7 +31,7 @@ class ImplicitDefSpec extends BaseSpec {
     Printer.printMe(new Square(2.0))(squarePrinter) shouldBe "Square: side=2.0, volume=4.0"
 
     // TODO not working, shape printer choosed
-    //Printer.printMe(new Square(2.0)) shouldBe "Square: side=2.0, volume=4.0"
+    // Printer.printMe(new Square(2.0)) shouldBe "Square: side=2.0, volume=4.0"
 
     Printer.printMe(new Circle(8.0)) shouldBe "Shape: volume=201.1"
   }

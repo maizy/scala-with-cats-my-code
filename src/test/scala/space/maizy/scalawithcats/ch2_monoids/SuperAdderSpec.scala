@@ -1,9 +1,9 @@
 package space.maizy.scalawithcats.ch2_monoids
 
 /**
-  * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
-  * See LICENSE.txt for details.
-  */
+ * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
+ * See LICENSE.txt for details.
+ */
 
 import space.maizy.scalawithcats.BaseSpec
 
@@ -29,7 +29,8 @@ class SuperAdderSpec extends BaseSpec {
 
     // could not find implicit value for evidence parameter of type cats.Monoid[Double]
     // evidance is added implicitly because of [A : Monoid] type
-    //SuperAdder.add2(List(1.0, 2.0, 5.0)) shouldBe 8.0
+    //
+    // SuperAdder.add2(List(1.0, 2.0, 5.0)) shouldBe 8.0
   }
 
   it should "works for custom types" in {

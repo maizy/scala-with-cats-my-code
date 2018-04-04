@@ -1,9 +1,9 @@
 package space.maizy.scalawithcats.ch2_monoids
 
 /**
-  * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
-  * See LICENSE.txt for details.
-  */
+ * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
+ * See LICENSE.txt for details.
+ */
 
 import cats.Monoid
 import space.maizy.scalawithcats.BaseSpec
@@ -11,10 +11,10 @@ import space.maizy.scalawithcats.BaseSpec
 class MonoidsSpec extends BaseSpec {
 
   def associativeLaw[A](x: A, y: A, z: A)(implicit m: Monoid[A]): Boolean =
-      m.combine(x, m.combine(y, z)) == m.combine(m.combine(x, y), z)
+    m.combine(x, m.combine(y, z)) == m.combine(m.combine(x, y), z)
 
   def identityLaw[A](x: A)(implicit m: Monoid[A]): Boolean =
-      (m.combine(x, m.empty) == x) && (m.combine(m.empty, x) == x)
+    (m.combine(x, m.empty) == x) && (m.combine(m.empty, x) == x)
 
   val booleanMonoids = Seq(
     BooleanMonoids.andMonoid,

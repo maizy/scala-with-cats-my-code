@@ -1,9 +1,9 @@
 package space.maizy.scalawithcats.ch4_monads
 
 /**
-  * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
-  * See LICENSE.txt for details.
-  */
+ * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
+ * See LICENSE.txt for details.
+ */
 
 import scala.language.higherKinds
 

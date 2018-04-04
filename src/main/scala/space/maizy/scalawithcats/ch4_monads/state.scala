@@ -23,7 +23,7 @@ object PostOrderCalculator {
           case "-" => operator(stack, _ - _)
           case "/" => operator(stack, _ / _)
           case "*" => operator(stack , _ * _)
-          case s => throw new PostOrderCalculatorError(s"Unknown token '$s'")
+          case s: String => throw new PostOrderCalculatorError(s"Unknown token '$s'")
         }
       }
     }

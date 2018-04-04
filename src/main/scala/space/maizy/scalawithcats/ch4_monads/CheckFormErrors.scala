@@ -13,13 +13,9 @@ object CheckFormErrors {
 
   type ErrorOr[A] = Either[String, A]
 
-  case class FormData(
-    email: String,
-  )
+  case class FormData(email: String)
 
-  case class ParsedFormData(
-    login: String,
-  )
+  case class ParsedFormData(login: String)
 
   private val monadError = MonadError[ErrorOr, String]
 

@@ -43,7 +43,8 @@ object ShapePrinter {
   }
 
   implicit val squarePrinter: Printer[Square] = new Printer[Square] {
-    override def printMe(value: Square): String = s"Square: side=${value.side}, volume=${value.volume.formatted("%.1f")}"
+    override def printMe(value: Square): String =
+      s"Square: side=${value.side}, volume=${value.volume.formatted("%.1f")}"
   }
 }
 

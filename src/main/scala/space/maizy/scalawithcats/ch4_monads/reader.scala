@@ -9,8 +9,8 @@ import cats.data.Reader
 import cats.syntax.applicative._
 
 case class Db(
-  usernames: Map[Int, String],
-  passwords: Map[String, String]
+    usernames: Map[Int, String],
+    passwords: Map[String, String]
 )
 
 object DbOperations {
