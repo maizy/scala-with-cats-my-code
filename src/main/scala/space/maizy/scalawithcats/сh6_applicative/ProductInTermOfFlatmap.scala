@@ -1,4 +1,4 @@
-package space.maizy.scalawithcats.ср6_applicative
+package space.maizy.scalawithcats.сh6_applicative
 
 /**
  * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
