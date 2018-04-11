@@ -10,11 +10,19 @@ import space.maizy.scalawithcats.BaseSpec
 
 class FormValidatorTest extends BaseSpec {
 
+  import cats.syntax.either._
+  import FormValidator._
+
   "FormValidator.getValue" should "works" in {
-    import cats.syntax.either._
-    import FormValidator._
     val formData: FormData = Map("name" -> "Some")
     getValue("name", formData) shouldBe "Some".asRight[FirstErrorOr[String]]
     getValue("other", formData) shouldBe NonEmptyList.one("other is required").asLeft[FirstErrorOr[String]]
+  }
+
+  "FormValidator.parseInt" should "works" in {
+    parseInt("12") shouldBe 12.asRight[FirstErrorOr[String]]
+    parseInt("abc") shouldBe
+      NonEmptyList.one("Unable to parse int from 'abc': NumberFormatException")
+        .asLeft[FirstErrorOr[String]]
   }
 }

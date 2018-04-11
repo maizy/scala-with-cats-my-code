@@ -6,6 +6,7 @@ package space.maizy.scalawithcats.сh6_applicative
  */
 
 import cats.data.{ NonEmptyList, Validated }
+import cats.syntax.either._
 
 case class User(name: String, age: Int)
 
@@ -25,4 +26,10 @@ object FormValidator {
 
   private[сh6_applicative] def getValue(field: String, data: FormData): FirstErrorOr[String] =
     data.get(field).toRight(NonEmptyList.one(s"$field is required"))
+
+  private[сh6_applicative] def parseInt(value: String): FirstErrorOr[Int] =
+    Either
+      .catchOnly[NumberFormatException](value.toInt)
+      .leftMap(e => NonEmptyList.one(s"Unable to parse int from '$value': ${e.getClass.getSimpleName}"))
+
 }
