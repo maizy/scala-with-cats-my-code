@@ -15,14 +15,19 @@ class FormValidatorTest extends BaseSpec {
 
   "FormValidator.getValue" should "works" in {
     val formData: FormData = Map("name" -> "Some")
-    getValue("name", formData) shouldBe "Some".asRight[FirstErrorOr[String]]
-    getValue("other", formData) shouldBe NonEmptyList.one("other is required").asLeft[FirstErrorOr[String]]
+    getValue("name")(formData) shouldBe "Some".asRight[ErrorsList]
+    getValue("other")(formData) shouldBe NonEmptyList.one("other is required").asLeft[String]
   }
 
   "FormValidator.parseInt" should "works" in {
-    parseInt("12") shouldBe 12.asRight[FirstErrorOr[String]]
-    parseInt("abc") shouldBe
-      NonEmptyList.one("Unable to parse int from 'abc': NumberFormatException")
-        .asLeft[FirstErrorOr[String]]
+    parseInt("age")("12") shouldBe 12.asRight[ErrorsList]
+    parseInt("age")("abc") shouldBe
+      NonEmptyList.one("Unable to convert age ('abc') to int: NumberFormatException")
+        .asLeft[String]
+  }
+
+  "FormValidator.nonBlank" should "works" in {
+    nonBlank("age")("12 ") shouldBe "12".asRight[ErrorsList]
+    nonBlank("age")(" ") shouldBe NonEmptyList.one("Field age is empty").asLeft[String]
   }
 }
