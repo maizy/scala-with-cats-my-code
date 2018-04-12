@@ -21,9 +21,19 @@ object FormValidator {
   type AllErrosOr[A] = Validated[ErrorsList, A]
   type FormData = Map[String, String]
 
-  def readName(data: FormData): FirstErrorOr[String] = ???
+  def readName(data: FormData): FirstErrorOr[String] =
+    for {
+      name <- getValue("name")(data)
+      trimmedName <- nonBlank("name")(name)
+    } yield trimmedName
 
-  def readAge(data: FormData): FirstErrorOr[Int] = ???
+  def readAge(data: FormData): FirstErrorOr[Int] =
+    for {
+      ageString <- getValue("age")(data)
+      ageNonEmpty <- nonBlank("age")(ageString)
+      ageInt <- parseInt("age")(ageNonEmpty)
+      age <- nonNegative("age")(ageInt)
+    } yield age
 
   private[сh6_applicative] def getValue(field: String)(data: FormData): FirstErrorOr[String] =
     data.get(field).toRight(NonEmptyList.one(s"$field is required"))

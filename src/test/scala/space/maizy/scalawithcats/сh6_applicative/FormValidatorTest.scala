@@ -30,4 +30,15 @@ class FormValidatorTest extends BaseSpec {
     nonBlank("age")("12 ") shouldBe "12".asRight[ErrorsList]
     nonBlank("age")(" ") shouldBe NonEmptyList.one("Field age is empty").asLeft[String]
   }
+
+  "FormValidator.readName" should "works" in {
+    readName(Map("name" -> "Some ")) shouldBe "Some".asRight[ErrorsList]
+    readName(Map("name" -> "")) shouldBe NonEmptyList.one("Field name is empty").asLeft[String]
+  }
+
+  "FormValidator.readAge" should "works" in {
+    readAge(Map("age" -> "100")) shouldBe 100.asRight[ErrorsList]
+    readAge(Map("age" -> "abc")) shouldBe
+      NonEmptyList.one("Unable to convert age ('abc') to int: NumberFormatException").asLeft[String]
+  }
 }
