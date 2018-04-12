@@ -7,6 +7,7 @@ package space.maizy.scalawithcats.сh6_applicative
 
 import cats.data.{ NonEmptyList, Validated }
 import cats.syntax.either._
+import cats.syntax.apply._
 
 case class User(name: String, age: Int)
 
@@ -18,8 +19,18 @@ case class User(name: String, age: Int)
 object FormValidator {
   type ErrorsList = NonEmptyList[String]
   type FirstErrorOr[A] = Either[ErrorsList, A]
-  type AllErrosOr[A] = Validated[ErrorsList, A]
+  type AllErrorsOr[A] = Validated[ErrorsList, A]
   type FormData = Map[String, String]
+
+  /**
+   * N.B. Intellij IDEA 2017.3.4 couldn't resolve mapN method
+   *      see https://youtrack.jetbrains.com/issue/SCL-12892
+   */
+  def getUser(data: FormData): AllErrorsOr[User] =
+    (
+      readName(data).toValidated,
+      readAge(data).toValidated
+    ).mapN(User.apply)
 
   def readName(data: FormData): FirstErrorOr[String] =
     for {

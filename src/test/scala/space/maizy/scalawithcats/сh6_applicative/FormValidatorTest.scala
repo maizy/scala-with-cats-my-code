@@ -11,6 +11,7 @@ import space.maizy.scalawithcats.BaseSpec
 class FormValidatorTest extends BaseSpec {
 
   import cats.syntax.either._
+  import cats.syntax.validated._
   import FormValidator._
 
   "FormValidator.getValue" should "works" in {
@@ -41,4 +42,13 @@ class FormValidatorTest extends BaseSpec {
     readAge(Map("age" -> "abc")) shouldBe
       NonEmptyList.one("Unable to convert age ('abc') to int: NumberFormatException").asLeft[String]
   }
+
+  "FormValidator.getUser" should "works" in {
+    FormValidator.getUser(Map("age" -> "100", "name" -> "Buddy ")) shouldBe User("Buddy", 100).valid[ErrorsList]
+    FormValidator.getUser(Map("age" -> "abc", "name" -> " ")) shouldBe
+      NonEmptyList
+        .of("Field name is empty", "Unable to convert age ('abc') to int: NumberFormatException")
+        .invalid[User]
+  }
+
 }
