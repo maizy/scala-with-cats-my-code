@@ -26,7 +26,7 @@ sourceCompatibility = 1.8
 
 ext {
   scalaMajorVersion = "2.12"
-  scalaMinorVersion = "4"
+  scalaMinorVersion = "6"
   scalaVersion = "${scalaMajorVersion}.${scalaMinorVersion}"
 }
 
@@ -38,7 +38,7 @@ dependencies {
 
   compile "org.scala-lang:scala-library:${scalaVersion}"
   compile "org.scala-lang:scala-reflect:${scalaVersion}"
-  compile "org.typelevel:cats-core_${scalaMajorVersion}:1.0.1"
+  compile "org.typelevel:cats-core_${scalaMajorVersion}:1.1.0"
 
   testCompile "org.scalatest:scalatest_${scalaMajorVersion}:3.0.4"
   testRuntime "org.pegdown:pegdown:1.4.2"
@@ -63,6 +63,7 @@ test {
 tasks.withType(ScalaCompile) {
     scalaCompileOptions.additionalParameters = [
         "-Xlint:_",
+        "-feature",
         "-Xfatal-warnings",
         "-Ypartial-unification",
         "-Ywarn-dead-code",
