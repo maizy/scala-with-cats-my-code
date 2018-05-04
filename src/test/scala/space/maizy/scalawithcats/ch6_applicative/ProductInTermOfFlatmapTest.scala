@@ -6,7 +6,6 @@ package space.maizy.scalawithcats.ch6_applicative
  */
 
 import space.maizy.scalawithcats.BaseSpec
-import space.maizy.scalawithcats.сh6_applicative.ProductInTermOfFlatmap
 
 class ProductInTermOfFlatmapTest extends BaseSpec {
   "ProductInTermOfFlatmap" should "works" in {

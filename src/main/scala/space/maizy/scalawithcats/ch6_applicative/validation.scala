@@ -46,19 +46,19 @@ object FormValidator {
       age <- nonNegative("age")(ageInt)
     } yield age
 
-  private[сh6_applicative] def getValue(field: String)(data: FormData): FirstErrorOr[String] =
+  private[ch6_applicative] def getValue(field: String)(data: FormData): FirstErrorOr[String] =
     data.get(field).toRight(NonEmptyList.one(s"$field is required"))
 
-  private[сh6_applicative] def parseInt(field: String)(value: String): FirstErrorOr[Int] =
+  private[ch6_applicative] def parseInt(field: String)(value: String): FirstErrorOr[Int] =
     Either
       .catchOnly[NumberFormatException](value.toInt)
       .leftMap(e => NonEmptyList.one(s"Unable to convert $field ('$value') to int: ${e.getClass.getSimpleName}"))
 
-  private[сh6_applicative] def nonBlank(field: String)(value: String): FirstErrorOr[String] =
+  private[ch6_applicative] def nonBlank(field: String)(value: String): FirstErrorOr[String] =
     value.trim.asRight[ErrorsList]
       .ensure(NonEmptyList.one(s"Field $field is empty"))(_.length > 0)
 
-  private[сh6_applicative] def nonNegative(field: String)(value: Int): FirstErrorOr[Int] =
+  private[ch6_applicative] def nonNegative(field: String)(value: Int): FirstErrorOr[Int] =
     value.asRight[ErrorsList]
       .ensure(NonEmptyList.one(s"Field $field is less than 0"))(_ >= 0)
 
