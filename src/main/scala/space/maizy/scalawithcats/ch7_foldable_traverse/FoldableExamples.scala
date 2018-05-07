@@ -2,6 +2,8 @@ package space.maizy.scalawithcats.ch7_foldable_traverse
 
 import cats.{ Eval, Foldable }
 import cats.instances.stream._
+import cats.instances.list._
+import cats.instances.int._
 
 /**
  * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
@@ -25,4 +27,8 @@ object FoldableExamples {
       sum.toDouble / n
     }
   }
+
+  def flatSum(nums: List[List[Int]]): Int =
+    (Foldable[List] compose Foldable[List]).fold(nums)
+
 }

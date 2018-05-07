@@ -29,4 +29,8 @@ class FoldableExamplesTest extends BaseSpec {
     val stream = List.fill(100000)(10L).toStream
     FoldableExamples.foldableAvg(stream).value shouldBe 10.0
   }
+
+  "flatSum" should "works" in {
+    FoldableExamples.flatSum(List(List(1, 2, 3), List.empty[Int], List(-3))) shouldBe 3
+  }
 }
