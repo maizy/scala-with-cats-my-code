@@ -8,7 +8,7 @@ package space.maizy.scalawithcats.ch6_applicative
 import cats.Monad
 import cats.syntax.functor._
 import cats.syntax.flatMap._
-
+import scala.language.higherKinds
 
 object ProductInTermOfFlatmap {
 
