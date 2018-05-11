@@ -41,7 +41,7 @@ class TraverseExamplesTest extends BaseSpec {
 
     // because flatMap used inside semigroupal combine are fail fast
     TraverseExamples.processListOfIntWithValidated(List(1, 2, 3)) shouldBe
-        List("1 is not even", "3 is not even").invalid[List[Int]]
+      List("1 is not even", "3 is not even").invalid[List[Int]]
 
     TraverseExamples.processListOfIntWithValidated(List(2, 1, 3)) shouldBe
       List("1 is not even", "3 is not even").invalid[List[Int]]
