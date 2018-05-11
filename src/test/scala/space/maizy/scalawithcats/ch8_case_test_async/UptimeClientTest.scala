@@ -8,16 +8,15 @@ package space.maizy.scalawithcats.ch8_case_test_async
 import space.maizy.scalawithcats.BaseSpec
 import cats.Id
 
+trait TestUptimeClient extends UptimeClient[Id] {
+  def getUptime(hostname: String): Int
+}
+
+class TestUptimeClientWithStub(hosts: Map[String, Int]) extends TestUptimeClient {
+  def getUptime(hostname: String): Int = hosts.getOrElse(hostname, 0)
+}
+
 class UptimeClientTest extends BaseSpec {
-
-  trait TestUptimeClient extends UptimeClient[Id] {
-    def getUptime(hostname: String): Int
-  }
-
-  class TestUptimeClientWithStub(hosts: Map[String, Int]) extends TestUptimeClient {
-    def getUptime(hostname: String): Int = hosts.getOrElse(hostname, 0)
-  }
-
   val hosts = Map("host1" -> 10, "host2" -> 6)
 
   "UptimeClient with HKT" should "works" in {
