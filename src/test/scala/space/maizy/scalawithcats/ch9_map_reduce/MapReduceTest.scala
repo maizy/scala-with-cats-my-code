@@ -9,7 +9,7 @@ import space.maizy.scalawithcats.BaseSpec
 
 class MapReduceTest extends BaseSpec {
 
-  "MapReduceTest.foldMap" should "works" in {
+  "MapReduce.foldMap" should "works" in {
     import cats.instances.int._
     import cats.instances.string._
     MapReduce.foldMap(Vector(1, 2, 3))(identity) shouldBe 6
