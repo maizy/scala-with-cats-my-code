@@ -1,4 +1,4 @@
-package space.maizy.scalawithcats.ch9_map_reduce
+package space.maizy.scalawithcats.ch9_case_map_reduce
 
 /**
  * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
