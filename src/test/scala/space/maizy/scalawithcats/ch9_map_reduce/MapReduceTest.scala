@@ -25,4 +25,10 @@ class MapReduceTest extends BaseSpec {
     Await.result(res, 1.minute) shouldBe 5050
   }
 
+  "MapReduce.parallelFoldMapWithCats" should "works" in {
+    import cats.instances.int._
+    val res = MapReduce.parallelFoldMapWithCats((1 to 100).toVector)(identity)
+    Await.result(res, 1.minute) shouldBe 5050
+  }
+
 }
