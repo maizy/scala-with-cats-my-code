@@ -38,7 +38,7 @@ object MapReduce {
     val batches = seq.grouped(batchSize).toVector
 
     batches
-        .traverse(batch => Future(batch.foldMap(f)))
-        .map(_.combineAll)
+      .traverse(batch => Future(batch.foldMap(f)))
+      .map(_.combineAll)
   }
 }
