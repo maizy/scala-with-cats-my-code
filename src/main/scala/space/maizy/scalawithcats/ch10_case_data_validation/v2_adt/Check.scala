@@ -1,4 +1,4 @@
-package space.maizy.scalawithcats.ch10_case_data_validation.adt
+package space.maizy.scalawithcats.ch10_case_data_validation.v2_adt
 
 /**
  * Copyright (c) Nikita Kovaliov, maizy.ru, 2018

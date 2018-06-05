@@ -1,4 +1,4 @@
-package space.maizy.scalawithcats.ch10_case_data_validation.adt
+package space.maizy.scalawithcats.ch10_case_data_validation.v2_adt
 
 /**
  * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
@@ -12,7 +12,7 @@ import space.maizy.scalawithcats.BaseSpec
 
 class CheckTest extends BaseSpec {
 
-  import space.maizy.scalawithcats.ch10_case_data_validation.adt.CheckOps._
+  import space.maizy.scalawithcats.ch10_case_data_validation.v2_adt.CheckOps._
 
   type Errors = NonEmptyList[String]
 
