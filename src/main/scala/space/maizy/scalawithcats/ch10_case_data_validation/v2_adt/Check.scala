@@ -10,7 +10,7 @@ import cats.syntax.semigroup._
 import cats.syntax.either._
 
 sealed trait Check[E, A] {
-  def and(that: Check[E, A]) = And(this, that)
+  def and(that: Check[E, A]): Check[E, A] = And(this, that)
 }
 
 case class And[E, A](left: Check[E, A], right: Check[E, A]) extends Check[E, A]
