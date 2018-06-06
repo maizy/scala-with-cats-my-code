@@ -14,7 +14,7 @@ class CheckTest extends BaseSpec {
 
   import space.maizy.scalawithcats.ch10_case_data_validation.v3_adt_n_validated.CheckOps._
 
-  type ErrorType = NonEmptyList[String]
+    type ErrorType = String
 
   val odd: Check[ErrorType, Int] = Pure { v =>
     if (v.abs % 2 == 1) {
@@ -41,22 +41,22 @@ class CheckTest extends BaseSpec {
   }
 
   "Check based on ADT" should "works" in {
-    odd.run(0) shouldBe NonEmptyList.one("0 isn't odd").invalid[Int]
-    odd.run(2) shouldBe NonEmptyList.one("2 isn't odd").invalid[Int]
-    odd.run(1) shouldBe 1.valid[ErrorType]
-    nonZero.run(2) shouldBe 2.valid[ErrorType]
+    odd.run(0) shouldBe "0 isn't odd".invalidNel[Int]
+    odd.run(2) shouldBe "2 isn't odd".invalidNel[Int]
+    odd.run(1) shouldBe 1.validNel[ErrorType]
+    nonZero.run(2) shouldBe 2.validNel[ErrorType]
   }
 
   "Check based on ADT" should "supports run & and" in {
     val oddNonZero  = nonZero and odd
-    oddNonZero.run(2) shouldBe NonEmptyList.one("2 isn't odd").invalid[Int]
+    oddNonZero.run(2) shouldBe "2 isn't odd".invalidNel[Int]
     oddNonZero.run(0) shouldBe NonEmptyList.of("value is zero", "0 isn't odd").invalid[Int]
   }
 
   "Check based on ADT" should "supports or" in {
     val zeroOrOdd  = zero or odd
-    zeroOrOdd.run(-1) shouldBe (-1).valid[ErrorType]
-    zeroOrOdd.run(0) shouldBe 0.valid[ErrorType]
+    zeroOrOdd.run(-1) shouldBe (-1).validNel[ErrorType]
+    zeroOrOdd.run(0) shouldBe 0.validNel[ErrorType]
     zeroOrOdd.run(-2) shouldBe NonEmptyList.of("-2 isn't zero", "-2 isn't odd").invalid[Int]
   }
 }
