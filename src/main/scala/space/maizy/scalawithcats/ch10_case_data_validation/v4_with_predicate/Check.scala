@@ -14,6 +14,7 @@ trait Check[E, A, B] {
   def apply(in: A)(implicit sg: Semigroup[NonEmptyList[E]]): ValidatedNel[E, B]
   def map[C](func: B => C): Check[E, A, C] = CheckMap[E, A, B, C](this, func)
   def flatMap[C](func: B => Check[E, A, C]): Check[E, A, C] = CheckFlatmap[E, A, B, C](this, func)
+  def andThen[C](that: Check[E, B, C]): Check[E, A, C] = CheckAndThen[E, A, B, C](this, that)
 }
 
 object Check {
@@ -39,5 +40,11 @@ final case class CheckFlatmap[E, A, B, C](check: Check[E, A, B], func: B => Chec
         checkC(a).toEither
       }
     }
+  }
+}
+
+final case class CheckAndThen[E, A, B, C](self: Check[E, A, B], that: Check[E, B, C]) extends Check[E, A, C] {
+  override def apply(in: A)(implicit sg: Semigroup[NonEmptyList[E]]): ValidatedNel[E, C] = {
+    self(in).withEither(eitherAB => eitherAB.flatMap((b: B) => that(b).toEither))
   }
 }

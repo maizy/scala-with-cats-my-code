@@ -53,6 +53,30 @@ class CheckTest extends BaseSpec {
     }
     checkIntAndString(20) shouldBe "20 is right value".validNel[ErrorType]
     checkIntAndString(0) shouldBe "value is zero".invalidNel[String]
-    checkIntAndString(0) shouldBe "value is zero".invalidNel[String]
+  }
+
+  it should "supports andThen" in {
+    val stringPredicate: Predicate[ErrorType, String] = Pure { v =>
+      if (v.length < 2) {
+        v.validNel[ErrorType]
+      } else {
+        s"value '$v' length more than 2".invalidNel[String]
+      }
+    }
+
+    val stringCheck = Check(stringPredicate)
+    stringCheck("100") shouldBe "value '100' length more than 2".invalidNel[Int]
+    stringCheck("2") shouldBe "2".validNel[ErrorType]
+
+    val intAndThenStringCheck = intCheck.map(_.toString) andThen stringCheck
+    val stringAndThenIntCheck = stringCheck.map(_.toInt) andThen intCheck
+
+    intAndThenStringCheck(1) shouldBe "1".validNel[ErrorType]
+    intAndThenStringCheck(100) shouldBe "value '100' length more than 2".invalidNel[String]
+    intAndThenStringCheck(0) shouldBe "value is zero".invalidNel[String]
+
+    stringAndThenIntCheck("1") shouldBe 1.validNel[ErrorType]
+    stringAndThenIntCheck("0") shouldBe "value is zero".invalidNel[Int]
+    stringAndThenIntCheck("100") shouldBe "value '100' length more than 2".invalidNel[Int]
   }
 }
