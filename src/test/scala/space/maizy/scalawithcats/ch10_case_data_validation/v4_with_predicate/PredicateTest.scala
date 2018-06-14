@@ -47,16 +47,22 @@ class PredicateTest extends BaseSpec {
     nonZero.run(2) shouldBe 2.validNel[ErrorType]
   }
 
-  "Predicate based on ADT" should "supports run & and" in {
+  it should "supports run & and" in {
     val oddNonZero  = nonZero and odd
     oddNonZero.run(2) shouldBe "2 isn't odd".invalidNel[Int]
     oddNonZero.run(0) shouldBe NonEmptyList.of("value is zero", "0 isn't odd").invalid[Int]
   }
 
-  "Predicate based on ADT" should "supports or" in {
+  it should "supports or" in {
     val zeroOrOdd  = zero or odd
     zeroOrOdd.run(-1) shouldBe (-1).validNel[ErrorType]
     zeroOrOdd.run(0) shouldBe 0.validNel[ErrorType]
     zeroOrOdd.run(-2) shouldBe NonEmptyList.of("-2 isn't zero", "-2 isn't odd").invalid[Int]
+  }
+
+  it should "supports lift" in {
+    val liftedPredicate = Predicate.lift[ErrorType, Int]("value is negative", _ >= 0)
+    liftedPredicate.run(-1) shouldBe "value is negative".invalidNel[Int]
+    liftedPredicate.run(0) shouldBe 0.validNel[ErrorType]
   }
 }

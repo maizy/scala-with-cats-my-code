@@ -8,6 +8,7 @@ package space.maizy.scalawithcats.ch10_case_data_validation.v4_with_predicate
 import cats.data.{ NonEmptyList, ValidatedNel }
 import cats.kernel.Semigroup
 import cats.syntax.apply._
+import cats.syntax.validated._
 
 sealed trait Predicate[E, A] {
   def and(that: Predicate[E, A]): Predicate[E, A] = And(this, that)
@@ -19,9 +20,9 @@ final case class Or[E, A](left: Predicate[E, A], right: Predicate[E, A]) extends
 final case class Pure[E, A](f: A => ValidatedNel[E, A]) extends Predicate[E, A]
 
 object PredicateOps {
-  implicit class CheckOps[E, A](check: Predicate[E, A]) {
+  implicit class CheckOps[E, A](predicate: Predicate[E, A]) {
     def run(v: A)(implicit sg: Semigroup[NonEmptyList[E]]): ValidatedNel[E, A] =
-      check match {
+      predicate match {
         case Pure(f) => f(v)
 
         case And(left, right) =>
@@ -31,4 +32,9 @@ object PredicateOps {
           left.run(v) findValid right.run(v)
       }
   }
+}
+
+object Predicate {
+  def lift[E, A](err: E, fn: A => Boolean): Predicate[E, A] =
+    Pure(a => if (fn(a)) a.validNel[E] else err.invalidNel[A])
 }

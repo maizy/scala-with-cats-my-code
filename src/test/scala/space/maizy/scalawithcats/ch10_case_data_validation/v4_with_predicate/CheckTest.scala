@@ -5,8 +5,6 @@ package space.maizy.scalawithcats.ch10_case_data_validation.v4_with_predicate
  * See LICENSE.txt for details.
  */
 
-import cats.Semigroup
-import cats.data.{ NonEmptyList, ValidatedNel }
 import cats.syntax.validated._
 import space.maizy.scalawithcats.BaseSpec
 
@@ -36,15 +34,12 @@ class CheckTest extends BaseSpec {
 
   it should "supports flatMap" in {
 
-    // there is no other convential way to implement this check
-    val stringCheck = new Check[ErrorType, Int, String] {
-      override def apply(in: Int)(implicit sg: Semigroup[NonEmptyList[ErrorType]]): ValidatedNel[ErrorType, String] = {
-        val strValue = in.toString
-        if (strValue.length > 1) {
-          s"$strValue is right value".validNel[ErrorType]
-        } else {
-          "should be more than 1 char".invalidNel[String]
-        }
+    val stringCheck = Check.apply[ErrorType, Int, String] { in =>
+      val strValue = in.toString
+      if (strValue.length > 1) {
+        s"$strValue is right value".validNel[ErrorType]
+      } else {
+        "should be more than 1 char".invalidNel[String]
       }
     }
 
