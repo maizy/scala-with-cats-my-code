@@ -32,7 +32,8 @@ object PredicateOps {
           left.toValidated(v) findValid right.toValidated(v)
       }
 
-    def run(v: A)(implicit sg: Semigroup[NonEmptyList[E]]): Either[NonEmptyList[E], A] = toValidated(v).toEither
+    def run(implicit sg: Semigroup[NonEmptyList[E]]): A => Either[NonEmptyList[E], A] =
+      toValidated _ andThen (_.toEither)
   }
 }
 

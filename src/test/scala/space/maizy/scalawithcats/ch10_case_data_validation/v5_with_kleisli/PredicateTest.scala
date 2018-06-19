@@ -41,28 +41,28 @@ class PredicateTest extends BaseSpec {
   }
 
   "Predicate based on ADT" should "works" in {
-    odd.run(0) shouldBe NonEmptyList.one("0 isn't odd").asLeft[Int]
-    odd.run(2) shouldBe NonEmptyList.one("2 isn't odd").asLeft[Int]
-    odd.run(1) shouldBe 1.asRight[ErrorsType]
-    nonZero.run(2) shouldBe 2.asRight[ErrorsType]
+    odd.run.apply(0) shouldBe NonEmptyList.one("0 isn't odd").asLeft[Int]
+    odd.run.apply(2) shouldBe NonEmptyList.one("2 isn't odd").asLeft[Int]
+    odd.run.apply(1) shouldBe 1.asRight[ErrorsType]
+    nonZero.run.apply(2) shouldBe 2.asRight[ErrorsType]
   }
 
   it should "supports run & and" in {
     val oddNonZero  = nonZero and odd
-    oddNonZero.run(2) shouldBe NonEmptyList.one("2 isn't odd").asLeft[Int]
-    oddNonZero.run(0) shouldBe NonEmptyList.of("value is zero", "0 isn't odd").asLeft[Int]
+    oddNonZero.run.apply(2) shouldBe NonEmptyList.one("2 isn't odd").asLeft[Int]
+    oddNonZero.run.apply(0) shouldBe NonEmptyList.of("value is zero", "0 isn't odd").asLeft[Int]
   }
 
   it should "supports or" in {
     val zeroOrOdd  = zero or odd
-    zeroOrOdd.run(-1) shouldBe (-1).asRight[ErrorsType]
-    zeroOrOdd.run(0) shouldBe 0.asRight[ErrorsType]
-    zeroOrOdd.run(-2) shouldBe NonEmptyList.of("-2 isn't zero", "-2 isn't odd").asLeft[Int]
+    zeroOrOdd.run.apply(-1) shouldBe (-1).asRight[ErrorsType]
+    zeroOrOdd.run.apply(0) shouldBe 0.asRight[ErrorsType]
+    zeroOrOdd.run.apply(-2) shouldBe NonEmptyList.of("-2 isn't zero", "-2 isn't odd").asLeft[Int]
   }
 
   it should "supports lift" in {
     val liftedPredicate = Predicate.lift[ErrorType, Int]("value is negative", _ >= 0)
-    liftedPredicate.run(-1) shouldBe NonEmptyList.one("value is negative").asLeft[Int]
-    liftedPredicate.run(0) shouldBe 0.asRight[ErrorsType]
+    liftedPredicate.run.apply(-1) shouldBe NonEmptyList.one("value is negative").asLeft[Int]
+    liftedPredicate.run.apply(0) shouldBe 0.asRight[ErrorsType]
   }
 }

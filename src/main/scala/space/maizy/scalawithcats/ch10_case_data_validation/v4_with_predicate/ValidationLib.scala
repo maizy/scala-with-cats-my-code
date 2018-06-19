@@ -8,7 +8,6 @@ package space.maizy.scalawithcats.ch10_case_data_validation.v4_with_predicate
 import cats.data.{ NonEmptyList, Validated, ValidatedNel }
 import cats.syntax.validated._
 import cats.syntax.apply._
-import space.maizy.scalawithcats.ch10_case_data_validation.v4_with_predicate.Predicates.ErrorType
 
 object Predicates {
 
