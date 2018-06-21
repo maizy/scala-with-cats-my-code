@@ -31,4 +31,27 @@ class GCounter2Test extends BaseSpec {
     merged shouldBe GCounter2(Map("A" -> 11, "B" -> 2, "C" -> 5))
   }
 
+  it should "works with set" in {
+    import cats.instances.set._
+
+    val empty = GCounter2[Set[String]](Map.empty)
+    val withA = empty.increment("A", Set("x", "y"))
+    withA shouldBe GCounter2(Map("A" -> Set("x", "y")))
+
+    val withB = withA.increment("B", Set("x", "b"))
+    withB shouldBe GCounter2(Map("A" -> Set("x", "y"), "B" -> Set("x", "b")))
+
+    withB.increment("A", Set("z")) shouldBe
+      GCounter2(Map("A" -> Set("x", "y", "z"), "B" -> Set("x", "b")))
+
+    withB.total shouldBe Set("b", "x", "y")
+
+    (withB merge GCounter2(Map("A" -> Set("w"), "C" -> Set("...", ",,,")))) shouldBe
+      GCounter2(Map(
+        "A" -> Set("x", "y", "w"),
+        "B" -> Set("x", "b"),
+        "C" -> Set("...", ",,,")
+      ))
+  }
+
 }

@@ -19,7 +19,7 @@ object BoundedSemiLattice {
     override def empty: Int = 0
   }
 
-  implicit def setBoundedSemiLattice[A](): BoundedSemiLattice[Set[A]] = new BoundedSemiLattice[Set[A]] {
+  implicit def setBoundedSemiLattice[A]: BoundedSemiLattice[Set[A]] = new BoundedSemiLattice[Set[A]] {
     override def combine(a1: Set[A], a2: Set[A]): Set[A] = a1 union a2
     override def empty: Set[A] = Set.empty[A]
   }
