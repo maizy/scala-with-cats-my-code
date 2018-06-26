@@ -9,7 +9,7 @@ import space.maizy.scalawithcats.BaseSpec
 
 class GCounterTest extends BaseSpec {
 
-  behavior of "GCounter"
+  behavior of "GCounter naive"
 
   it should "increment" in {
     val empty = GCounter(Map.empty)

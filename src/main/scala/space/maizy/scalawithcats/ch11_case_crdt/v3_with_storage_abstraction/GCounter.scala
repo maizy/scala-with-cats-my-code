@@ -8,7 +8,9 @@ package space.maizy.scalawithcats.ch11_case_crdt.v3_with_storage_abstraction
 import scala.language.higherKinds
 import cats.Monoid
 import cats.instances.map._
+import cats.instances.list._
 import cats.syntax.semigroup._
+import cats.syntax.foldable._
 import space.maizy.scalawithcats.ch11_case_crdt.BoundedSemiLattice
 
 trait GCounter[F[_, _], K, V] {
@@ -34,7 +36,7 @@ object GCounterMapInstances {
       s1 |+| s2
 
     override def total(storage: Map[String, A])(implicit monoid: Monoid[A]): A =
-      monoid.combineAll(storage.values)
+      storage.values.toList.combineAll
   }
 
 }

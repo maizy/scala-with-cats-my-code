@@ -10,7 +10,7 @@ import space.maizy.scalawithcats.ch11_case_crdt.v2_typeclasses.GCounter
 
 class GCounterTest extends BaseSpec {
 
-  behavior of "GCounter"
+  behavior of "GCounter with type classes"
 
   it should "increment" in {
     import cats.instances.int._
