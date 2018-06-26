@@ -26,11 +26,11 @@ object GCounterMapInstances {
   implicit def mapGCounter[A]: GCounter[Map, String, A] = new GCounter[Map, String, A] {
 
     override def increment(storage: Map[String, A])(machine: String, amount: A)
-        (implicit monoid: Monoid[A]): Map[String, A] =
+      (implicit monoid: Monoid[A]): Map[String, A] =
       storage.updated(machine, storage.getOrElse(machine, monoid.empty) |+| amount)
 
     override def merge(s1: Map[String, A], s2: Map[String, A])
-        (implicit bsl: BoundedSemiLattice[A]): Map[String, A] =
+      (implicit bsl: BoundedSemiLattice[A]): Map[String, A] =
       s1 |+| s2
 
     override def total(storage: Map[String, A])(implicit monoid: Monoid[A]): A =
