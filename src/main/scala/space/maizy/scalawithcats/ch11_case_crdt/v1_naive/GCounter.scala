@@ -1,4 +1,4 @@
-package space.maizy.scalawithcats.ch11_case_crdt
+package space.maizy.scalawithcats.ch11_case_crdt.v1_naive
 
 /**
  * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
