@@ -1,4 +1,4 @@
-package space.maizy.scalawithcats.ch11_case_crdt.v3_with_map_abstraction
+package space.maizy.scalawithcats.ch11_case_crdt.v3_with_storage_abstraction
 
 /**
  * Copyright (c) Nikita Kovaliov, maizy.ru, 2018
