@@ -14,7 +14,7 @@ import cats.syntax.foldable._
 import space.maizy.scalawithcats.ch11_case_crdt.BoundedSemiLattice
 
 trait GCounter[F[_, _], K, V] {
-  def increment(storage: F[K, V])(machine: String, amount: V)(implicit monoid: Monoid[V]): F[K, V]
+  def increment(storage: F[K, V])(machine: K, amount: V)(implicit monoid: Monoid[V]): F[K, V]
   def merge(s1: F[K, V], s2: F[K, V])(implicit bsl: BoundedSemiLattice[V]): F[K, V]
   def total(storage: F[K, V])(implicit monoid: Monoid[V]): V
 }
